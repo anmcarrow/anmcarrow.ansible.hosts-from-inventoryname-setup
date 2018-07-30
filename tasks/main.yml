@@ -1,8 +1,9 @@
 ---
 
-- name: Set hostname from ansible repo on remote machine
+- name: Set appropriate hostname for targeted host(s)
   hostname:
-   name: "{{ ansible_inventory_name }}"
+   name: "{{ inventory_hostname }}.{{ parent_dns_zone }}"
+  tags: localhostname
 
 - name: Deploy appropriate /etc/hosts file
   template:
@@ -10,3 +11,13 @@
     dest: /etc/hosts
     mode: 0644
     backup: yes
+  tags: localhostname
+
+#- name: Add all inventorized hosts to /etc/hosts on targeted host(s)
+#  lineinfile:
+#    dest: /etc/hosts
+#    regexp: '.*{{ item }}$'
+#    line: "{{ hostvars[item].ansible_ssh_host }} {{item}}"
+#    state: present
+#  with_items: {{ groups['all']}}
+#  tags: allhostsnames
