@@ -1,0 +1,12 @@
+---
+
+- name: Set hostname from ansible repo on remote machine
+  hostname:
+   name: "{{ ansible_inventory_name }}"
+
+- name: Deploy appropriate /etc/hosts file
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+    mode: 0644
+    backup: yes
