@@ -1,2 +1,4 @@
 ---
+
+all_hostnames_deploy: no
 parent_dns_zone: iut.iskrauraltel.ru

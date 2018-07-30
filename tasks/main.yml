@@ -3,21 +3,20 @@
 - name: Set appropriate hostname for targeted host(s)
   hostname:
    name: "{{ inventory_hostname }}.{{ parent_dns_zone }}"
-  tags: localhostname
 
-- name: Deploy appropriate /etc/hosts file
+- name: Deploy /etc/hosts file with targeted host name only
   template:
-    src: hosts.j2
+    src: hosts-single.j2
+    dest: /etc/hosts
+    mode: 0644
+    backup: yes
+  when: all_hostnames_deploy == 'no'
+
+- name: Deploy /etc/hosts file with all inventarized hosts names
+  template:
+    src: hosts-single.j2
     dest: /etc/hosts
     mode: 0644
     backup: yes
   tags: localhostname
-
-#- name: Add all inventorized hosts to /etc/hosts on targeted host(s)
-#  lineinfile:
-#    dest: /etc/hosts
-#    regexp: '.*{{ item }}$'
-#    line: "{{ hostvars[item].ansible_ssh_host }} {{item}}"
-#    state: present
-#  with_items: {{ groups['all']}}
-#  tags: allhostsnames
+    when: all_hostnames_deploy == 'yes'

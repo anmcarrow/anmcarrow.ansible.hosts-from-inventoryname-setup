@@ -1,7 +1,9 @@
 Generic hostname setup ansible role
 ==============================
 
-This Ansible role setup hostname of target hosts according to `ansible_inventory_name` variable
+This Ansible role setup hostname of target hosts according to `inventory_hostname` Ansible variable
+
+It's also can add to `/etc/host` file on targeted host(s) all your hosts with IP (based on `ansible_ssh_host` variable) from inventory file. This optional task will do if you will set `all_hostnames_deploy` variable to `yes` while run the playbook.
 
 Requirements
 ------------
