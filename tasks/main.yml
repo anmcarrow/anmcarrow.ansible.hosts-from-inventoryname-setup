@@ -19,4 +19,4 @@
     mode: 0644
     backup: yes
   tags: localhostname
-    when: all_hostnames_deploy == 'yes'
+  when: all_hostnames_deploy == 'yes'
