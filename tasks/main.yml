@@ -14,7 +14,7 @@
 
 - name: Deploy /etc/hosts file with all inventarized hosts names
   template:
-    src: hosts-single.j2
+    src: hosts-full.j2
     dest: /etc/hosts
     mode: 0644
     backup: yes
